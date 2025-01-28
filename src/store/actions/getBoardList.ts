@@ -8,7 +8,7 @@ export const getBoardList = async function (this: any) {
     this.loadingError.tooLong = true;
   }, 3000);
   axios
-    .get('/api/boards')
+    .get('http://localhost:3000/api/boards')
     .then(({ data }) => {
       this.boardList.all = data;
       this.loading = false;

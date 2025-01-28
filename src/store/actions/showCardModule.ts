@@ -4,7 +4,7 @@ import axios from 'axios';
 export const showCardModule = async function (this: any, cardId: Card['id'], flag: boolean) {
   if (flag) {
     await axios
-      .get(`/api/cards/${cardId}`)
+      .get(`http://localhost:3000/api/cards/${cardId}`)
       .then(({ data }) => {
         this.activeCard = data;
         this.cardModule = true;

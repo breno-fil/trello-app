@@ -15,6 +15,13 @@
       @close="hideDropdown()"
     >
       <DropdownItem
+        item-text="Change Background Color"
+        data-cy="change-color"
+        @click="
+          changeColor(board.id);
+        "
+      />
+      <DropdownItem
         item-text="Delete board"
         :warning="true"
         data-cy="delete-board"
@@ -30,9 +37,9 @@
 
 <script setup lang="ts">
 import { PropType, ref } from 'vue';
-import { useStore } from '@/store/store';
-import { useRouter } from 'vue-router';
 import Board from '@/typings/board';
+import { useRouter } from 'vue-router';
+import { useStore } from '@/store/store';
 import Dots from '@/assets/icons/dots.svg';
 import Dropdown from '@/components/common/Dropdown.vue';
 import DropdownItem from '@/components/common/DropdownItem.vue';
@@ -46,6 +53,7 @@ defineProps({
 
 const router = useRouter();
 const dropdown = ref(false);
+const { changeColor } = useStore();
 const { deleteBoard } = useStore();
 const onClickAway = () => {
   dropdown.value = false;

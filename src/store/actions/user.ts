@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const user = async function (this: any, id: number) {
   await axios
-    .get(`/api/users/${id}`)
+    .get(`http://localhost:3000/api/users/${id}`)
     .then(({ data }) => {
       this.showNotification('User is logged in', false);
       this.activeUser.loggedIn = true;

@@ -4,6 +4,14 @@
       <h1 class="mb-8 text-3xl font-bold">
         Create a new account
       </h1>
+      <label for="username">Username</label>
+      <input
+        v-model="signupForm.username"
+        class="px-2 mb-3 w-full h-10 bg-gray3 focus:bg-white rounded-sm"
+        placeholder="Username"
+        name="username"
+        data-cy="signup-username"
+      >
       <label for="email">Email</label>
       <input
         v-model="signupForm.email"
@@ -21,28 +29,16 @@
         placeholder="Password"
         name="password"
         @keyup.enter="
-          signup(signupForm.email, signupForm.password, signupForm.welcomeEmail).then(() => {
+          signup(signupForm.username, signupForm.email, signupForm.password).then(() => {
             router.push('/');
           })
         "
       >
-      <div class="mb-4">
-        <input
-          v-model="signupForm.welcomeEmail"
-          type="checkbox"
-          name="welcomeEmail"
-          class="mr-2"
-        >
-        <label
-          class="text-sm"
-          for="welcomeEmail"
-        >Send me a welcome email</label>
-      </div>
       <button
         class="py-2 w-full text-white bg-green7 hover:bg-green6"
         data-cy="signup-submit"
         @click="
-          signup(signupForm.email, signupForm.password, signupForm.welcomeEmail).then(() => {
+          signup(signupForm.username, signupForm.email, signupForm.password).then(() => {
             router.push('/');
           })
         "

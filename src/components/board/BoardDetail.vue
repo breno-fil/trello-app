@@ -105,8 +105,10 @@ import draggable from 'vuedraggable';
 const route = useRoute();
 const state = useStore();
 const inputActive = ref(false);
-const boardId = Number(route.params.board);
-state.getBoardDetail(boardId);
+const board_id = Number(route.params.board);
+
+state.getBoardDetail(board_id);
+
 const onClickAway = () => {
   inputActive.value = false;
 };

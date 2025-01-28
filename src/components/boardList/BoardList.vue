@@ -44,6 +44,7 @@
           <BoardCreate />
         </div>
       </div>
+
     </div>
     <Emptylist v-if="!state.loading && !state.boardList.all.length && !state.loadingError.show" />
   </div>
@@ -59,6 +60,7 @@ import Loading from '@/components/Loading.vue';
 
 const state = useStore();
 state.getBoardList();
+
 </script>
 <style lang="postcss" scoped>
 .board-list {

@@ -7,7 +7,7 @@ const app = jsonServer.create();
 
 app.post('/', ({ body }, res, next) => {
 
-  validate(['boardId', 'listId', 'name'], body, res)
+  validate(['boardId', 'list_id', 'name'], body, res)
 
   if (res.statusCode !== 400) {
     // data generation

@@ -18,7 +18,7 @@ declare global {
 export const addBoardApi = function(this: any, name: string): Cypress.Chainable<any> {
 
   return cy
-    .request('POST', '/api/boards', { name })
+    .request('POST', 'http://localhost:3000/api/boards', { name })
     .its('body', { log: false }).as('board');
     
 };

@@ -67,10 +67,10 @@ const addList = () => {
     return;
   }
 
-  const boardId = board.value.id;
+  const board_id = board.value.id;
   const name = listTitle.value;
 
-  createList(boardId, name);
+  createList(board_id, name);
 
   listTitle.value = '';
 };

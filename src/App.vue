@@ -8,14 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import { useKeypress } from 'vue3-keypress';
+import axios from 'axios';
 import { useStore } from '@/store/store';
-import Navbar from '@/components/Navbar.vue';
-import Notification from '@/components/Notification.vue';
 import Tools from '@/components/Tools.vue';
+import { useKeypress } from 'vue3-keypress';
+import Navbar from '@/components/Navbar.vue';
 import Search from '@/components/Search.vue';
 import Footer from '@/components/Footer.vue';
-import axios from 'axios';
+import Notification from '@/components/Notification.vue';
 
 const state = useStore();
 const toggleTools = state.toggleTools;

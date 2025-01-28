@@ -18,9 +18,9 @@ declare global {
 export const addCardApi = function(this: any, { name, boardAlias = 'board', listAlias = 'list', cardAlias = 'card' }: { name: string, boardAlias?: string, listAlias?: string, cardAlias?: string  }): Cypress.Chainable<any> {
 
   return cy
-    .request('POST', '/api/cards', {
-      boardId: this[boardAlias].id,
-      listId: this[listAlias].id,
+    .request('POST', 'http://localhost:3000/api/cards', {
+      board_id: this[boardAlias].id,
+      list_id: this[listAlias].id,
       name,
       order: 0
     })

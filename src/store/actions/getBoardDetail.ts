@@ -4,19 +4,25 @@ import Board from '@/typings/board';
 import Card from '@/typings/card';
 import List from '@/typings/list';
 import axios, { AxiosError } from 'axios';
+import { useStore } from '../store';
 
 export const getBoardDetail = async function (this: any, id: Board['id']) {
+
+  console.debug("GET BOARD DETAIL BOARD ID :: ", id)
+  const store = useStore()
   const route = useRoute();
+
+  store.board.id = id;
 
   this.loading = true;
 
   try {
-    const board = await axios.get(`/api/boards/${id}`);
+    const board = await axios.get(`http://localhost:3000/api/boards/${id}`);
     this.board = board.data;
 
-    const lists = await axios.get(`/api/lists?boardId=${id}`);
+    const lists = await axios.get(`http://localhost:3000/api/lists?board_id=${id}`);
     lists.data.sort((a: List, b: List) => {
-      return a.order - b.order;
+      return a.position - b.position;
     });
     this.lists = lists.data;
     if (lists.data.length) this.createListInput = false;
@@ -24,7 +30,7 @@ export const getBoardDetail = async function (this: any, id: Board['id']) {
     // if there are no lists, don’t fetch cards
     this.lists.forEach((list: List, index: number) => {
       this.loadingListCards[this.lists[index].id] = true;
-      axios.get(`/api/cards?listId=${list.id}`).then(({ data }) => {
+      axios.get(`http://localhost:3000/api/cards?list_id=${list.id}`).then(({ data }) => {
         data.sort((a: Card, b: Card) => {
           return a.order - b.order;
         });

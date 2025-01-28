@@ -1,5 +1,5 @@
 {
-  "name": "trelloapp-vue-vite-ts",
+  "name": "trello-app",
   "version": "1.0.0",
   "scripts": {
     "start": "vite",
@@ -40,6 +40,7 @@
     "json-server": "^0.17.0",
     "json-server-auth": "^2.1.0",
     "jws-jwk": "^0.1.4",
+    "jwt-decode": "^4.0.0",
     "leaflet": "^1.8.0",
     "moment": "^2.29.1",
     "nocache": "^3.0.1",

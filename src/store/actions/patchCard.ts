@@ -4,8 +4,8 @@ import axios from 'axios';
 
 export const patchCard = async function (this: any, card: Card, changes: Partial<Card>) {
   const { id } = card;
-  await axios.patch(`/api/cards/${id}`, changes).then((res) => {
-    let listIndex = this.lists.findIndex((list: List) => list.id === card.listId);
+  await axios.patch(`http://localhost:3000/api/cards/${id}`, changes).then((res) => {
+    let listIndex = this.lists.findIndex((list: List) => list.id === card.list_id);
     const cardsInList = this.lists[listIndex].cards;
     const patchedCardIndex: number = cardsInList.findIndex((c: Card) => c.id === id);
     this.lists[listIndex].cards[patchedCardIndex] = res.data;

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const oauthSignup = async function (this: any, jwt: string) {
   await axios
-    .post('/api/signup', { jwt })
+    .post('http://localhost:3000/api/signup', { jwt })
     .then(({ data }) => {
       const token = data.accessToken;
       const email = data.user.email;

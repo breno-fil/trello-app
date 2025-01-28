@@ -59,8 +59,8 @@ const addCard = () => {
     return;
   }
   createCard({
-    boardId: board.value.id,
-    listId: props.list.id,
+    board_id: board.value.id,
+    list_id: props.list.id,
     name: cardTitle.value,
   });
   cardTitle.value = '';

@@ -62,8 +62,10 @@ const focusNewBoardInput = () => {
 };
 
 const redirectToNewBoard = async () => {
-  const board = await createBoard(newBoardTitle.value);
-  board?.id && router.push(`/board/${board.id}`);
+    await createBoard(newBoardTitle.value).then((board) => {
+      router.push(`/board/${board.id}`);
+    } 
+  )
 };
 </script>
 <style lang="postcss" scoped>

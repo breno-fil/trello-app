@@ -9,12 +9,12 @@ export const routes = [
   {
     component: BoardList,
     name: 'BoardList',
-    path: '/',
+    path: '/'
   },
   {
     component: Login,
     name: 'Login',
-    path: '/login',
+    path: '/login'
   },
   {
     component: Signup,
@@ -35,5 +35,5 @@ export const routes = [
     component: NotFound,
     path: '/:pathMatch(.*)*',
     name: 'Page not found',
-  },
+  }
 ];

@@ -1,9 +1,11 @@
 interface Board {
   id: number;
-  starred: boolean;
   name: string;
-  created: string;
   user: number;
+  starred: boolean;
+  text_color: string;
+  created_by: number;
+  background_color: string;
 }
 
 export default Board;

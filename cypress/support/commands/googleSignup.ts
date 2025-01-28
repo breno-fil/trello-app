@@ -27,7 +27,7 @@ export const googleSignup = function (this: any): Cypress.Chainable<any> {
     },
   }).then(({ body }) => {
     const { id_token } = body
-    cy.request('POST', '/api/signup', { jwt: id_token })
+    cy.request('POST', 'http://localhost:3000/api/signup', { jwt: id_token })
       .then(({ body: { accessToken } }) => {
         cy.setCookie('auth_token', accessToken)
       })

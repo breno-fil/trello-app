@@ -1,14 +1,15 @@
 interface Card {
-  boardId: number;
-  listId: number;
-  name: string;
-  description: string;
   id: number;
-  image: string | null;
-  created: string;
-  deadline: string;
-  completed: boolean;
+  name: string;
   order: number;
+  list_id: number;
+  board_id: number;
+  due_date: string;
+  position: number;
+  completed: boolean;
+  created_at: string;
+  description: string;
+  image: string | null;
 }
 
 export default Card;

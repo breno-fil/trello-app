@@ -49,7 +49,7 @@
           <div class="inline-block mt-2">
             <Checkbox :card="activeCard" />
             <h2 class="inline-block py-1 px-4 font-light text-gray-800 bg-gray3 hover:bg-gray5 rounded-sm cursor-default">
-              {{ new Date(activeCard.deadline).toDateString() }}
+              {{ new Date(activeCard.due_date).toDateString() }}
               <div
                 v-show="activeCard.completed"
                 class="inline-block px-2 mx-1 text-sm text-white bg-green5 rounded-sm"
@@ -243,7 +243,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const { showNotification, showCardModule, patchCard, deleteCard } = useStore();
 const { lists, activeCard } = storeToRefs(useStore());
-const cardListName = lists.value.find((l: List) => l.id === activeCard.value.listId)!['name'];
+const cardListName = lists.value.find((l: List) => l.id === activeCard.value.list_id)!['name'];
 
 const showDate = ref(false);
 const cardNameInputActive = ref(false);
@@ -259,7 +259,7 @@ const clickAwayDate = () => {
 
 const updateDate = (data: string) => {
   const formattedDate = moment(data).format('YYYY-MM-DD');
-  patchCard(activeCard.value, { deadline: formattedDate });
+  patchCard(activeCard.value, { due_date: formattedDate });
   showDate.value = false;
 };
 
@@ -271,7 +271,7 @@ const copyProperties = (content: Card) => {
 };
 
 const overdue = (card: Card) => {
-  return card.deadline && moment(card.deadline).diff(moment().startOf('day'), 'days') < 1;
+  return card.due_date && moment(card.due_date).diff(moment().startOf('day'), 'days') < 1;
 };
 
 onMounted(() => {

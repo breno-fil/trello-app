@@ -18,7 +18,7 @@ declare global {
 export const signupApi = function (this: any, { email, password, login = true }: { email: string, password: string, login?: boolean }) {
 
   cy
-    .request('POST', '/api/signup', {
+    .request('POST', 'http://localhost:3000/api/signup', {
       email, password
     }).then(({ body }) => {
       if (login) cy.setCookie('auth_token', body.accessToken)

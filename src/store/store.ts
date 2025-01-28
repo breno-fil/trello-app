@@ -28,6 +28,8 @@ import { searchCard } from './actions/searchCard';
 import { oauthLogin } from './actions/oauthLogin';
 import { oauthSignup } from './actions/oauthSignup';
 import { getLocation } from './actions/getLocation';
+import { changeColor } from './actions/changeColor';
+
 import Board from '@/typings/board';
 
 export const useStore = defineStore({
@@ -60,9 +62,11 @@ export const useStore = defineStore({
         accessToken: '',
         email: '',
         id: 0,
+        username: '',
         loggedIn: false,
       },
       signupForm: {
+        username: '',
         email: '',
         password: '',
         welcomeEmail: false,
@@ -90,6 +94,7 @@ export const useStore = defineStore({
     getBoardList,
     patchBoard,
     deleteBoard,
+    changeColor,
 
     // list actions
     createList,
@@ -131,10 +136,10 @@ export const useStore = defineStore({
   },
   getters: {
     starred: (state): Board[] => {
-      return state.boardList.all?.filter((board: Board) => board.starred === true);
+      return state.boardList.all?.filter((board: Board) => board?.starred === true);
     },
     allBoards: (state): Board[] => {
-      return state.boardList.all?.filter((board: Board) => board.starred === false);
+      return state.boardList.all;
     },
   },
 });

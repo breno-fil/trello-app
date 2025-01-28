@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const oauthLogin = async function (this: any, jwt: string) {
   await axios
-    .post('/api/login', { jwt })
+    .post('http://localhost:3000/api/login', { jwt })
     .then(({ data }) => {
       const token = data.accessToken;
       const email = data.user.email;

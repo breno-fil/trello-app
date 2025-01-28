@@ -21,7 +21,7 @@
       :class="card.completed ? 'completed' : overdue(card) ? 'overdue' : 'text-gray9'"
     >
       <Clock class="inline-block w-4 h-4 fill-current" />
-      <span class="ml-2">{{ new Date(card.deadline).toDateString().substring(4) }}</span>
+      <span class="ml-2">{{ new Date(card.due_date).toDateString().substring(4) }}</span>
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ defineProps({
 const { showCardModule } = useStore();
 
 const overdue = (card: Card) => {
-  return card.deadline && moment(card.deadline).diff(moment().startOf('day'), 'days') < 1;
+  return card.due_date && moment(card.due_date).diff(moment().startOf('day'), 'days') < 1;
 };
 </script>
 

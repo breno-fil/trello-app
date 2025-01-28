@@ -1,12 +1,12 @@
 import Card from './card';
 
 interface List {
-  boardId: number;
-  name: string;
   id: number;
-  order: number;
-  created: string;
+  name: string;
   cards: Card[];
+  created: string;
+  position: number;
+  board_id: number;
 }
 
 export default List;

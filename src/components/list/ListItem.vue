@@ -104,7 +104,7 @@ const sortCards = () => {
   const listIndex = lists.value.findIndex((l: List) => l.id === props.list.id);
   // trigget PATCH request for every car that was dragged
   lists.value[listIndex].cards.forEach((card: Card, order: Card['order']) => {
-    patchCard(card, { listId: props.list.id, order });
+    patchCard(card, { list_id: props.list.id, order });
   });
 };
 </script>
