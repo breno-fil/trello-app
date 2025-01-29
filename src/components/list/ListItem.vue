@@ -15,7 +15,7 @@
           selectInput($event);
           inputActive = true;
         "
-        @change="patchList(list, { name: inputValue($event) })"
+        @change="renameList(list, inputValue($event))"
         @keyup.enter="
           blurInput($event);
           inputActive = false;
@@ -91,14 +91,24 @@ const inputActive = ref(false);
 const isDragging = ref(false);
 
 const { lists, loadingListCards } = storeToRefs(useStore());
-const { patchCard, patchList } = useStore();
+const { patchCard, patchList, showNotification } = useStore();
+
+const renameList = (list: any, name: string) => {
+  if (name === null || name === '') {
+    showNotification('Listas precisam de um título', true);
+  } else {
+    patchList(list, { name: name });
+  }
+};
 
 const onClickAway = () => {
   inputActive.value = false;
 };
+
 const showCardCreate = (flag: boolean) => {
   cardCreate.value = flag;
 };
+
 const sortCards = () => {
   // find list index of dragged card(s)
   const listIndex = lists.value.findIndex((l: List) => l.id === props.list.id);

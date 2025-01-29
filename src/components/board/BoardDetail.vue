@@ -113,10 +113,9 @@ const starBoard = () => {
   auxBoard.id = board_id;
   auxBoard.user = state.activeUser.id;
   
-  const boards = state.boardList.all.filter((item: any) => {return Number(item.id) == board_id});
+  const boards = state.boardList.all.filter((item: any) => { return Number(item.id) == board_id });
 
   if (boards.length == 1) {
-    
     auxBoard = boards[0];
     const starred = !auxBoard.starred;
     patchBoardUser(auxBoard, {'board_id': board_id, 'starred': starred});
@@ -151,7 +150,6 @@ const checkStar = () => {
     state.showNotification('Erro ao favoritar board.', true);
     return false;
   }
-  
 }
 
 const onClickAway = () => {

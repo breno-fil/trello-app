@@ -2,9 +2,6 @@ import Board from '@/typings/board';
 import axios from 'axios';
 
 export const createList = async function (this: any, board_id: Board['id'], name: string) {
-
-  console.log(`LIST BOARD ID :: ${board_id}`)
-  
   axios
     .post('http://localhost:3000/api/lists', { board_id, name, position: this.lists.length })
     .then(({ data }) => {

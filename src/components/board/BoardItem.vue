@@ -49,9 +49,20 @@ defineProps({
 let showStar = ref(false);
 
 const starBoard = (board: any) => {
-  patchBoardUser(board, {'board_id': Number(board.id), 'starred': !board.starred});
+
+  if (board && board.hasOwnProperty('starred')) {
+    patchBoardUser(board, {'board_id': Number(board.id), 'starred': !board.starred});
+  } else {
+    console.error("Problema no Board")
+    console.debug(`boardItem :: board :: ${board}`);
+  }
+
 }
 
+
+function userStore() {
+  throw new Error('Function not implemented.');
+}
 </script>
 
 <style lang="postcss" scoped>

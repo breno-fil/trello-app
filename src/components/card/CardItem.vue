@@ -15,14 +15,14 @@
       </div>
       <Pen class="hidden absolute top-2 right-2 p-1 w-5 h-5 text-gray-700 bg-gray1 bg-opacity-60 pen" />
     </div>
-    <div
+    <!-- <div
       class="py-1 px-1.5 mt-1 w-[fit-content] text-xs rounded-sm"
       data-cy="due-date"
       :class="card.completed ? 'completed' : overdue(card) ? 'overdue' : 'text-gray9'"
     >
       <Clock class="inline-block w-4 h-4 fill-current" />
       <span class="ml-2">{{ new Date(card.due_date).toDateString().substring(4) }}</span>
-    </div>
+    </div> -->
   </div>
 </template>
 

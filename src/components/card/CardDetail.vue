@@ -25,7 +25,7 @@
               selectInput($event);
               cardNameInputActive = true;
             "
-            @change="patchCard(activeCard, { name: activeCard.name })"
+            @change="patchCard(activeCard, { due_date: new Date().toISOString(), name: activeCard.name })"
             @keyup.enter="
               blurInput($event);
               cardNameInputActive = false;
@@ -36,7 +36,7 @@
             "
           >
           <h2 class="text-sm text-gray10">
-            in list <span
+            na lista <span
               class="underline"
               data-cy="card-list-name"
             >{{ cardListName }}</span>
@@ -44,72 +44,8 @@
         </div>
         <div class="mb-4 ml-9">
           <h2 class="block text-sm text-gray10 cursor-default">
-            DUE DATE
+            Última alteração: {{formatDate(activeCard.due_date)}}
           </h2>
-          <div class="inline-block mt-2">
-            <Checkbox :card="activeCard" />
-            <h2 class="inline-block py-1 px-4 font-light text-gray-800 bg-gray3 hover:bg-gray5 rounded-sm cursor-default">
-              {{ new Date(activeCard.due_date).toDateString() }}
-              <div
-                v-show="activeCard.completed"
-                class="inline-block px-2 mx-1 text-sm text-white bg-green5 rounded-sm"
-              >
-                COMPLETED
-              </div>
-              <div
-                v-show="overdue(activeCard) && !activeCard.completed"
-                class="inline-block px-2 mx-1 text-sm text-white bg-red-500 rounded-sm"
-              >
-                OVERDUE
-              </div>
-              <button
-                data-cy="calendar-dropdown"
-                @click="showDate = true"
-              >
-                <Downarrow class="inline-block py-2 pl-2 w-5 text-gray-800 cursor-pointer fill-current stroke-current" />
-              </button>
-            </h2>
-            <div
-              v-if="showDate"
-              class="absolute"
-            >
-              <Datepicker
-                v-model="date"
-                v-click-away="clickAwayDate"
-                inline
-                auto-apply
-                :enable-time-picker="false"
-                data-cy="card-detail-deadline"
-                @update:model-value="updateDate"
-              >
-                <template #day="{ day }">
-                  <div data-cy="day">
-                    {{ day }}
-                  </div>
-                </template>
-                <template #month="{ text }">
-                  <div data-cy="header-month">
-                    {{ text }}
-                  </div>
-                </template>
-                <template #month-overlay="{ text }">
-                  <div data-cy="month">
-                    {{ text }}
-                  </div>
-                </template>
-                <template #year="{ year }">
-                  <div data-cy="header-year">
-                    {{ year }}
-                  </div>
-                </template>
-                <template #year-overlay="{ text }">
-                  <div data-cy="year">
-                    {{ text }}
-                  </div>
-                </template>
-              </Datepicker>
-            </div>
-          </div>
         </div>
         <div class="mb-4 ml-9">
           <div class="inline-block">
@@ -126,7 +62,7 @@
               selectInput($event);
               descriptionInputActive = true;
             "
-            @change="patchCard(activeCard, { description: activeCard.description })"
+            @change="patchCard(activeCard, { due_date: new Date().toISOString(), description: activeCard.description })"
             @keydown.enter="
               blurInput($event);
               descriptionInputActive = false;
@@ -165,7 +101,7 @@
               <div
                 class="block font-normal underline cursor-pointer"
                 data-cy="image-delete"
-                @click="patchCard(activeCard, { image: null })"
+                @click="patchCard(activeCard, { due_date: new Date().toISOString(), image: null })"
               >
                 <Cross class="inline-block mb-1 w-4" />Delete
               </div>
@@ -189,17 +125,10 @@
         </div>
         <div
           class="py-0.5 px-2 text-sm text-gray-600 bg-gray3 hover:bg-gray5 rounded-sm cursor-pointer"
-          data-cy="calendar-button"
-          @click="showDate = true"
-        >
-          <Clock class="inline-block mr-2 mb-0.5 w-4" />Due date
-        </div>
-        <div
-          class="py-0.5 px-2 text-sm text-gray-600 bg-gray3 hover:bg-gray5 rounded-sm cursor-pointer"
           data-cy="copy-properties"
           @click="copyProperties(activeCard)"
         >
-          <Copy class="inline-block mr-2 mb-0.5 w-4" />Copy attributes
+          <Copy class="inline-block mr-2 mb-0.5 w-4" />Copiar atributos
         </div>
         <div
           class="py-0.5 px-2 text-sm text-gray-600 bg-gray3 hover:bg-gray5 rounded-sm cursor-pointer"
@@ -209,7 +138,7 @@
             router.push(router.currentRoute.value.path);
           "
         >
-          <Trash class="inline-block mr-2 mb-0.5 w-4" />Delete card
+          <Trash class="inline-block mr-2 mb-0.5 w-4" />Excluir card
         </div>
       </div>
     </div>
@@ -217,7 +146,7 @@
 </template>
 
 <script setup lang="ts">
-import Datepicker from '@vuepic/vue-datepicker';
+// import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { blurInput } from '@/utils/blurInput';
 import { ref, onMounted } from 'vue';
@@ -226,52 +155,42 @@ import { useStore } from '@/store/store';
 import Attachment from '@/assets/icons/attachment.svg';
 import Board from '@/assets/icons/board.svg';
 import Card from '@/typings/card';
-import Checkbox from '@/components/Checkbox.vue';
+// import Checkbox from '@/components/Checkbox.vue';
 import Clock from '@/assets/icons/clock.svg';
 import Copy from '@/assets/icons/copy.svg';
 import Cross from '@/assets/icons/cross.svg';
 import Download from '@/assets/icons/download.svg';
 import Description from '@/assets/icons/description.svg';
-import Downarrow from '@/assets/icons/downarrow.svg';
+// import Downarrow from '@/assets/icons/downarrow.svg';
 import Dropzone from '../Dropzone.vue';
 import List from '@/typings/list';
 import Trash from '@/assets/icons/trash.svg';
 import moment from 'moment';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import 'moment/locale/pt-br';
 
 const router = useRouter();
 const { showNotification, showCardModule, patchCard, deleteCard } = useStore();
 const { lists, activeCard } = storeToRefs(useStore());
 const cardListName = lists.value.find((l: List) => l.id === activeCard.value.list_id)!['name'];
 
-const showDate = ref(false);
 const cardNameInputActive = ref(false);
 const descriptionInputActive = ref(false);
-const date = ref(new Date());
 
 const clickAwayCardName = () => {
   cardNameInputActive.value = false;
 };
-const clickAwayDate = () => {
-  showDate.value = false;
-};
 
-const updateDate = (data: string) => {
-  const formattedDate = moment(data).format('YYYY-MM-DD');
-  patchCard(activeCard.value, { due_date: formattedDate });
-  showDate.value = false;
-};
+const formatDate = (date: string) => {
+  return moment(date).format("DD/MM/YYYY, HH:mm");
+}
 
 const copyProperties = (content: Card) => {
   const clipBoardValue = JSON.stringify(content, null, 2);
   const clipboard = window.navigator.clipboard;
   showNotification('Card info copied to clipboard', false);
   return clipboard.writeText(clipBoardValue);
-};
-
-const overdue = (card: Card) => {
-  return card.due_date && moment(card.due_date).diff(moment().startOf('day'), 'days') < 1;
 };
 
 onMounted(() => {
