@@ -8,15 +8,19 @@ import { useStore } from '../store';
 
 export const getBoardDetail = async function (this: any, id: Board['id']) {
 
-  console.debug("GET BOARD DETAIL BOARD ID :: ", id)
-  const store = useStore()
+  const state = useStore()
   const route = useRoute();
 
-  store.board.id = id;
+  state.board.id = id;
 
   this.loading = true;
 
   try {
+
+    const board_user: any = await axios.get(`http://localhost:3000/api/board-users?board_id=${id}&user_id=${state.activeUser.id}`);
+
+    state.board = {...state.board, 'starred': board_user.data.starred};
+
     const board = await axios.get(`http://localhost:3000/api/boards/${id}`);
     this.board = board.data;
 

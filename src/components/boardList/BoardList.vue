@@ -18,7 +18,7 @@
           class="inline-block py-5 mx-4 text-3xl font-semibold"
           data-cy="starred-boards"
         >
-          Starred
+          Favoritos
         </h1>
         <div class="flex flex-wrap flex-grow gap-8 content-start mx-4 flex-cols-3">
           <BoardItem
@@ -33,7 +33,7 @@
       <!-- ALL BOARDS -->
       <div v-if="state.allBoards.length">
         <h1 class="inline-block py-5 mx-4 text-3xl font-semibold">
-          My Boards
+          Meus Quadros
         </h1>
         <div class="flex flex-wrap flex-grow gap-8 content-start mx-4 flex-cols-3">
           <BoardItem

@@ -19,7 +19,7 @@
         v-show="showStar"
         data-cy="star"
         class="star"
-        @click.stop="patchBoard(board, { starred: !board.starred })"
+        @click.stop="starBoard(board)"
       >
         <Star
           class="col-span-1 w-5 h-5"
@@ -34,9 +34,9 @@
 import { PropType, ref } from 'vue';
 import Board from '@/typings/board';
 import Star from '@/assets/icons/star.svg';
-import { useStore } from '@/store/store';
+import { patchBoardUser } from '@/store/actions/patchBoardUser';
 
-const { patchBoard } = useStore();
+// const { patchBoard } = useStore();
 defineProps({
   board: {
     default: null,
@@ -44,7 +44,14 @@ defineProps({
   },
 });
 
+// var state = useStore();
+
 let showStar = ref(false);
+
+const starBoard = (board: any) => {
+  patchBoardUser(board, {'board_id': Number(board.id), 'starred': !board.starred});
+}
+
 </script>
 
 <style lang="postcss" scoped>

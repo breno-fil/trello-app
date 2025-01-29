@@ -8,7 +8,7 @@
       v-if="state.loading"
       class="grid justify-center content-center h-screen loading"
     >
-      <div><LoadingIcon class="inline-block mb-1" />&nbsp;&nbsp;Loading data ...</div>
+      <div><LoadingIcon class="inline-block mb-1" />&nbsp;&nbsp;Carregando dados...</div>
     </div>
     <!-- ERROR STATE -->
     <div
@@ -24,7 +24,7 @@
         to="/"
         class="block font-semibold text-center text-blue7"
       >
-        Go back home
+        Voltar
       </router-link>
     </div>
     <!-- BOARD DETAIL -->
@@ -53,13 +53,9 @@
         </div>
         <div
           class="inline-grid relative self-center ml-2 w-8 h-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-sm cursor-pointer"
-          :class="[state.board.starred ? 'fill-current text-yellow-300' : 'stroke-current text-white']"
+          :class="[checkStar() ? 'fill-current text-yellow-300' : 'stroke-current text-white']"
           data-cy="star"
-          @click="
-            state.patchBoard(state.board, {
-              starred: !state.board.starred,
-            })
-          "
+          @click="starBoard()"
         >
           <Star class="place-self-center m-2" />
         </div>
@@ -102,6 +98,7 @@ import LoadingIcon from '@/assets/icons/loadingIcon.svg';
 import Star from '@/assets/icons/star.svg';
 import draggable from 'vuedraggable';
 import { patchBoard } from '@/store/actions/patchBoard';
+import { patchBoardUser } from '@/store/actions/patchBoardUser';
 
 const route = useRoute();
 const state = useStore();
@@ -110,6 +107,26 @@ const board_id = Number(route.params.board);
 
 state.getBoardDetail(board_id);
 
+const starBoard = () => {
+
+  var auxBoard = {...state.board};
+  auxBoard.id = board_id;
+  auxBoard.user = state.activeUser.id;
+  
+  const boards = state.boardList.all.filter((item: any) => {return Number(item.id) == board_id});
+
+  if (boards.length == 1) {
+    
+    auxBoard = boards[0];
+    const starred = !auxBoard.starred;
+    patchBoardUser(auxBoard, {'board_id': board_id, 'starred': starred});
+  } else {
+    console.error("Error on starring board.")
+    state.showNotification('Erro ao favoritar board.', true)
+  }
+  
+}
+
 const renameBoard = (name: string) => {
   if (name == null || name == "") {
     state.showNotification('Boards precisam de um nome.', true);
@@ -117,6 +134,24 @@ const renameBoard = (name: string) => {
     state.board.id = board_id;
     patchBoard(state.board, {'name': name});
   }
+}
+
+const checkStar = () => {
+  var auxBoard = {...state.board};
+  auxBoard.id = board_id;
+  auxBoard.user = state.activeUser.id;
+
+  const boards = state.boardList.all.filter((item: any) => {return Number(item.id) == board_id});
+  
+  if (boards.length == 1) {
+    auxBoard = boards[0];
+    return auxBoard.starred;
+  } else {
+    console.error("Error on star check.");
+    state.showNotification('Erro ao favoritar board.', true);
+    return false;
+  }
+  
 }
 
 const onClickAway = () => {

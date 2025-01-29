@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { useStore } from '../store';
 
 export const login = async function (this: any, email: string, password: string) {
   await axios
@@ -15,11 +16,15 @@ export const login = async function (this: any, email: string, password: string)
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       document.cookie = `auth_token=${token}`;
+
+      var state = useStore();
       
       this.activeUser.id = id;
       this.activeUser.email = email;
       this.activeUser.username = username;
       this.activeUser.accessToken = token;
+
+      state.activeUser = this.activeUser;
 
       this.user(this.activeUser.id);
     })

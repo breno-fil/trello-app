@@ -139,7 +139,7 @@ export const useStore = defineStore({
       return state.boardList.all?.filter((board: Board) => board?.starred === true);
     },
     allBoards: (state): Board[] => {
-      return state.boardList.all;
+      return state.boardList.all?.filter((board: Board) => board?.starred === false);
     },
   },
 });

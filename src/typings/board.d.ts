@@ -2,6 +2,7 @@ interface Board {
   id: number;
   name: string;
   user: number;
+  role: string;
   starred: boolean;
   text_color: string;
   created_by: number;
