@@ -49,6 +49,7 @@ import Cross from '@/assets/icons/cross.svg';
 import Plus from '@/assets/icons/plus.svg';
 import SaveButton from '@/components/SaveButton.vue';
 import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router';
 
 defineProps({
   board: {
@@ -57,8 +58,9 @@ defineProps({
   },
 });
 
-const { board, createListInput, lists } = storeToRefs(useStore());
+const { createListInput, lists } = storeToRefs(useStore());
 const { createList } = useStore();
+const route = useRoute();
 const listTitle = ref('');
 const listCreate = ref();
 
@@ -67,8 +69,9 @@ const addList = () => {
     return;
   }
 
-  const board_id = board.value.id;
+  // const board_id = board.value.id;
   const name = listTitle.value;
+  const board_id = Number(route.params.board);
 
   createList(board_id, name);
 

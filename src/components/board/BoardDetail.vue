@@ -46,7 +46,7 @@
             autocomplete="off"
             name="board-title"
             @focus="selectInput($event)"
-            @change="state.patchBoard(state.board, { name: state.board.name })"
+            @change="renameBoard(state.board.name)"
             @keyup.enter="blurInput($event)"
             @keyup.esc="blurInput($event)"
           >
@@ -101,6 +101,7 @@ import ListItem from '@/components/list/ListItem.vue';
 import LoadingIcon from '@/assets/icons/loadingIcon.svg';
 import Star from '@/assets/icons/star.svg';
 import draggable from 'vuedraggable';
+import { patchBoard } from '@/store/actions/patchBoard';
 
 const route = useRoute();
 const state = useStore();
@@ -108,6 +109,15 @@ const inputActive = ref(false);
 const board_id = Number(route.params.board);
 
 state.getBoardDetail(board_id);
+
+const renameBoard = (name: string) => {
+  if (name == null || name == "") {
+    state.showNotification('Boards precisam de um nome.', true);
+  } else {
+    state.board.id = board_id;
+    patchBoard(state.board, {'name': name});
+  }
+}
 
 const onClickAway = () => {
   inputActive.value = false;

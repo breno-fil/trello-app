@@ -3,6 +3,8 @@ import Board from '@/typings/board';
 
 export const deleteBoard = async function (this: any, board_id: Board['id']) {
 
+  console.debug(`DELETE BOARD :: ${board_id}`)
+
   axios
     .delete(`http://localhost:3000/api/boards/${board_id}`)
     .then(() => {

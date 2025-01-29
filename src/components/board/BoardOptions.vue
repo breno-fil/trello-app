@@ -26,7 +26,7 @@
         :warning="true"
         data-cy="delete-board"
         @click="
-          deleteBoard(board.id);
+          onDelete();
           router.push('/');
           showDropdown();
         "
@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { PropType, ref } from 'vue';
 import Board from '@/typings/board';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '@/store/store';
 import Dots from '@/assets/icons/dots.svg';
 import Dropdown from '@/components/common/Dropdown.vue';
@@ -55,6 +55,14 @@ const router = useRouter();
 const dropdown = ref(false);
 const { changeColor } = useStore();
 const { deleteBoard } = useStore();
+
+const route = useRoute()
+
+const onDelete = () => {
+  const board_id: number = Number(route.params.board);
+  deleteBoard(board_id)
+}
+
 const onClickAway = () => {
   dropdown.value = false;
 };

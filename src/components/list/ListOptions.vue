@@ -28,7 +28,8 @@
       :warning="true"
       data-cy="delete-list"
       @click="
-        deleteList(list.id);
+        // deleteList(list.id);
+        onDelete(list.id);
         hideDropdown();
       "
     />
@@ -53,6 +54,11 @@ defineProps({
 
 const emit = defineEmits(['toggle-input']);
 const dropdown = ref(false);
+
+const onDelete = (id: number) => {
+    deleteList(id);
+}
+
 const onClickAway = () => {
   dropdown.value = false;
 };
