@@ -12,9 +12,14 @@ export const deleteCard = async function (this: any, card: Card) {
   
   await axios.delete(`http://localhost:3000/api/cards/${id}`).then(({data}) => {
 
-    this.lists[listIndex].cards = this.lists[listIndex].cards.filter((item: Card) => item.id !== data.id);
-  
+    console.debug(`deleteCard :: deleted card :: data :: ${JSON.stringify(data)}`);
+
+    this.lists[listIndex].cards = this.lists[listIndex].cards.filter((item: Card) => Number(item.id) !== Number(data.id));
+    
+    console.debug(`deleteCard :: updated list :: ${JSON.stringify(this.lists[listIndex])}`);
+
     this.activeCard = {};
+
     this.cardModule = false;
   
     this.showNotification('Card excluído com sucesso.', false);

@@ -4,6 +4,10 @@ import axios from 'axios';
 
 export const patchCard = async function (this: any, card: Card, changes: Partial<Card>) {
   const { id } = card;
+
+  console.debug(`patchCard :: card :: values  :: ${JSON.stringify(card)}`);
+  console.debug(`patchCard :: card :: changes :: ${JSON.stringify(changes)}`);
+
   await axios.patch(`http://localhost:3000/api/cards/${id}`, changes).then((res) => {
 
     let listIndex = this.lists.findIndex((list: List) => list.id === card.list_id);

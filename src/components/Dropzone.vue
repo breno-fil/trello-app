@@ -24,7 +24,7 @@
         for="dropzoneFile"
         class="self-start place-self-center py-1.5 px-3 mt-2 text-gray1 bg-gray-400 cursor-pointer"
         :class="isDragActive && 'bg-gray-800'"
-      >select image</label>
+      >selecione um arquivo</label>
     </div>
     <input
       id="dropzoneFile"

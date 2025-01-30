@@ -21,6 +21,7 @@ export const login = async function (this: any, email: string, password: string)
       
       this.activeUser.id = id;
       this.activeUser.email = email;
+      this.activeUser.loggedIn = true;
       this.activeUser.username = username;
       this.activeUser.accessToken = token;
 

@@ -40,14 +40,17 @@ import User from '@/assets/icons/user.svg';
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
 
-const router = useRouter();
 const route = useRoute();
-const { showNotification, getBoardList } = useStore();
+const router = useRouter();
 const { activeUser } = storeToRefs(useStore());
+const { showNotification, getBoardList, boardList } = useStore();
+
 const logout = function (this: any) {
-  activeUser.value.loggedIn = false;
+  boardList.all = []; // remove boards
+  activeUser.value.loggedIn = false; // check user as not logged
   axios.defaults.headers.common['Authorization'] = '';
   document.cookie = 'auth_token=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
   showNotification('User was logged out', false);
 };
+
 </script>

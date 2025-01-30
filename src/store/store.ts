@@ -7,7 +7,9 @@ import { uploadFile } from './actions/uploadFile';
 import { deleteCard } from './actions/deleteCard';
 import { deleteList } from './actions/deleteList';
 import { patchList } from './actions/patchList';
+import { updateList } from './actions/updateList';
 import { createCard } from './actions/createCard';
+import { updateCard } from './actions/updateCard';
 import { createList } from './actions/createList';
 import { sortLists } from './actions/sortLists';
 import { deleteBoard } from './actions/deleteBoard';
@@ -71,6 +73,10 @@ export const useStore = defineStore({
         password: '',
         welcomeEmail: false,
       },
+      shareForm: {
+        board: -1,
+        permissions: [],
+      },
       loginForm: {
         email: '',
         password: '',
@@ -101,12 +107,14 @@ export const useStore = defineStore({
     deleteList,
     patchList,
     sortLists,
+    updateList,
 
     // card actions
     createCard,
     patchCard,
     deleteCard,
     uploadFile,
+    updateCard,
 
     // user actions
     signup,

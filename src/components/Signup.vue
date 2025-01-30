@@ -43,19 +43,13 @@
           })
         "
       >
-        Create account
+        Criar conta
       </button>
-      <GoogleSignIn
-        v-if="googleEnabled === 'true'"
-        @on-submit="handleResponse"
-      >
-        <GoogleButton :log-sign="'Sign up'" />
-      </GoogleSignIn>
       <router-link
         class="mt-4 text-sm text-center underline"
         to="/login"
       >
-        Already have an account? Log in here
+        Já possui conta? Log in.
       </router-link>
     </div>
     <img
@@ -66,16 +60,13 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@/store/store';
 import { storeToRefs } from 'pinia';
-import GoogleSignIn from './GoogleSignIn.vue';
-import GoogleButton from './GoogleButton.vue';
 import { useRouter } from 'vue-router';
+import { useStore } from '@/store/store';
+
 const router = useRouter();
-const googleEnabled = process.env.VUE_APP_GOOGLE_ENABLED;
-const { oauthSignup, signup } = useStore();
+
+const { signup } = useStore();
+
 const { signupForm } = storeToRefs(useStore());
-function handleResponse(value: any): void {
-  oauthSignup(value.googleUser.wc.id_token);
-}
 </script>

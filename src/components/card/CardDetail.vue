@@ -44,6 +44,9 @@
         </div>
         <div class="mb-4 ml-9">
           <h2 class="block text-sm text-gray10 cursor-default">
+            Card criado em: {{formatDate(activeCard.created_at)}}
+          </h2>
+          <h2 class="block text-sm text-gray10 cursor-default">
             Última alteração: {{formatDate(activeCard.due_date)}}
           </h2>
         </div>
@@ -52,7 +55,7 @@
             <Description class="-mb-1 -ml-8 w-5 h-5 text-gray-800 fill-current stroke-current" />
           </div>
           <h1 class="inline-block mb-4 text-lg font-semibold text-black">
-            Description
+            Descrição
           </h1>
           <textarea
             v-model="activeCard.description"
@@ -62,7 +65,7 @@
               selectInput($event);
               descriptionInputActive = true;
             "
-            @change="patchCard(activeCard, { due_date: new Date().toISOString(), description: activeCard.description })"
+            @change="updateCard(activeCard, { due_date: new Date().toISOString(), description: activeCard.description })"
             @keydown.enter="
               blurInput($event);
               descriptionInputActive = false;
@@ -73,12 +76,13 @@
             "
           />
         </div>
+
         <div class="mb-4 ml-9">
           <div class="inline-block">
             <Attachment class="-mb-1 -ml-8 w-5 h-5 text-gray-800 fill-current stroke-current" />
           </div>
           <h1 class="inline-block mb-4 text-lg font-semibold text-black">
-            Image
+            PDF
           </h1>
           <div
             v-if="activeCard.image"
@@ -113,6 +117,7 @@
           />
         </div>
       </div>
+
       <div class="grid col-span-2 gap-y-2 content-start">
         <div class="grid self-end place-content-center place-self-end w-8 h-8 hover:bg-gray5 cursor-pointer">
           <Cross
@@ -156,7 +161,7 @@ import Attachment from '@/assets/icons/attachment.svg';
 import Board from '@/assets/icons/board.svg';
 import Card from '@/typings/card';
 // import Checkbox from '@/components/Checkbox.vue';
-import Clock from '@/assets/icons/clock.svg';
+// import Clock from '@/assets/icons/clock.svg';
 import Copy from '@/assets/icons/copy.svg';
 import Cross from '@/assets/icons/cross.svg';
 import Download from '@/assets/icons/download.svg';
@@ -171,8 +176,8 @@ import { useRouter } from 'vue-router';
 import 'moment/locale/pt-br';
 
 const router = useRouter();
-const { showNotification, showCardModule, patchCard, deleteCard } = useStore();
 const { lists, activeCard } = storeToRefs(useStore());
+const { showNotification, showCardModule, patchCard, deleteCard, updateCard } = useStore();
 const cardListName = lists.value.find((l: List) => l.id === activeCard.value.list_id)!['name'];
 
 const cardNameInputActive = ref(false);

@@ -4,8 +4,14 @@ import Login from '@/components/Login.vue';
 import NotFound from '@/components/NotFound.vue';
 import Signup from '@/components/Signup.vue';
 import Pricing from '@/components/Pricing.vue';
+import ShareForm from '@/components/ShareForm.vue';
 
 export const routes = [
+  {
+    component: ShareForm,
+    name: 'ShareForm',
+    path: '/share'
+  },
   {
     component: BoardList,
     name: 'BoardList',

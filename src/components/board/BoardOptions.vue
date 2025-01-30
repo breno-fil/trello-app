@@ -15,13 +15,6 @@
       @close="hideDropdown()"
     >
       <DropdownItem
-        item-text="Change Background Color"
-        data-cy="change-color"
-        @click="
-          changeColor(board.id);
-        "
-      />
-      <DropdownItem
         item-text="Delete board"
         :warning="true"
         data-cy="delete-board"
@@ -53,10 +46,9 @@ defineProps({
 
 const router = useRouter();
 const dropdown = ref(false);
-const { changeColor } = useStore();
 const { deleteBoard } = useStore();
 
-const route = useRoute()
+const route = useRoute();
 
 const onDelete = () => {
   const board_id: number = Number(route.params.board);

@@ -91,7 +91,7 @@ const inputActive = ref(false);
 const isDragging = ref(false);
 
 const { lists, loadingListCards } = storeToRefs(useStore());
-const { patchCard, patchList, showNotification } = useStore();
+const { updateCard, patchList, showNotification } = useStore();
 
 const renameList = (list: any, name: string) => {
   if (name === null || name === '') {
@@ -112,9 +112,9 @@ const showCardCreate = (flag: boolean) => {
 const sortCards = () => {
   // find list index of dragged card(s)
   const listIndex = lists.value.findIndex((l: List) => l.id === props.list.id);
-  // trigget PATCH request for every car that was dragged
+  // trigger PATCH request for every card dragged
   lists.value[listIndex].cards.forEach((card: Card, order: Card['order']) => {
-    patchCard(card, { list_id: props.list.id, order });
+    updateCard(card, { list_id: props.list.id, position: order });
   });
 };
 </script>

@@ -21,6 +21,8 @@ export const getBoardDetail = async function (this: any, id: Board['id']) {
 
     state.board = {...state.board, 'starred': board_user.data.starred};
 
+    console.debug(`getBoardDetail :: board :: ${JSON.stringify(state.board)}`);
+
     const board = await axios.get(`http://localhost:3000/api/boards/${id}`);
     this.board = board.data;
 
@@ -35,11 +37,15 @@ export const getBoardDetail = async function (this: any, id: Board['id']) {
     this.lists.forEach((list: List, index: number) => {
       this.loadingListCards[this.lists[index].id] = true;
       axios.get(`http://localhost:3000/api/cards?list_id=${list.id}`).then(({ data }) => {
-        data.sort((a: Card, b: Card) => {
-          return a.order - b.order;
-        });
+        
+        console.debug(`getBoardDetail :: cards list ${index} :: ${JSON.stringify(data)}`);
+
+        data.sort((a: Card, b: Card) => { return a.order - b.order });
+
         this.lists[index].cards = [];
+
         this.lists[index].cards.push(...data);
+
         this.loadingListCards[this.lists[index].id] = false;
       });
     });

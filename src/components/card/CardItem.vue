@@ -15,25 +15,15 @@
       </div>
       <Pen class="hidden absolute top-2 right-2 p-1 w-5 h-5 text-gray-700 bg-gray1 bg-opacity-60 pen" />
     </div>
-    <!-- <div
-      class="py-1 px-1.5 mt-1 w-[fit-content] text-xs rounded-sm"
-      data-cy="due-date"
-      :class="card.completed ? 'completed' : overdue(card) ? 'overdue' : 'text-gray9'"
-    >
-      <Clock class="inline-block w-4 h-4 fill-current" />
-      <span class="ml-2">{{ new Date(card.due_date).toDateString().substring(4) }}</span>
-    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { useStore } from '@/store/store';
 import Card from '@/typings/card';
-import Checkbox from '@/components/Checkbox.vue';
-import Clock from '@/assets/icons/clock.svg';
+import { useStore } from '@/store/store';
 import Pen from '@/assets/icons/pen.svg';
-import moment from 'moment';
+import Checkbox from '@/components/Checkbox.vue';
 
 defineProps({
   card: {
@@ -44,9 +34,6 @@ defineProps({
 
 const { showCardModule } = useStore();
 
-const overdue = (card: Card) => {
-  return card.due_date && moment(card.due_date).diff(moment().startOf('day'), 'days') < 1;
-};
 </script>
 
 <style lang="postcss" scoped>
